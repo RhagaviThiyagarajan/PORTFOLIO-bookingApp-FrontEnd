@@ -1,0 +1,88 @@
+.reserve
+{
+    width:100vw;
+    height:100vh;
+    background-color:black;
+    position:fixed;
+    top:0;
+    left:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.reserveContainer
+{
+    background-color:white;
+    padding:20px;
+    position:relative;
+
+}
+
+
+.reserveClose
+{
+
+    position:absolute;
+    top:0;
+    right:0;
+    cursor:pointer;
+}
+
+.resultItem
+{
+    display:flex;
+    align-items:center;
+    gap:50px;
+    padding:20px;
+}
+
+
+.resultItemInfo
+{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+
+.resultTitle
+{
+    font-weight:500;
+}
+
+
+.resultDesc
+{
+    font-weight:500;
+
+}
+
+
+.resultMax
+{
+    font-size:12px;
+
+}
+
+
+.resultPrice
+{
+    font-weight:500;
+}
+
+.rSelectRooms
+{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    font-size:8px;
+    color:gray;
+}
+
+
+.room
+{
+    display:flex;
+    flex-direction:column;
+}
