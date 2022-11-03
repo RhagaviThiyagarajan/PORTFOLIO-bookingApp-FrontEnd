@@ -2,7 +2,7 @@ MERN-
 https://booking-app-mern.netlify.app/
 
 
-backend-
+backend/heroku
 https://booking-app-node.herokuapp.com
 
 
