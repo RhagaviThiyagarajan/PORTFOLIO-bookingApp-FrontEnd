@@ -17,7 +17,7 @@ const List = () => {
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
 
-  const { data, loading, error, reFetch } = useFetch(
+  const { data, load, error, reFetch } = useFetch(
     `https://booking-app-node.herokuapp.com/api/hotels?city=${destination}&min=${min||0}&max=${max||5999}`
   );
 
@@ -112,7 +112,7 @@ const List = () => {
             <button onClick={handleClick}>Search</button>
           </div>
           <div className="listResult">
-            {loading ? (
+            {load ? (
               "loading"
             ) : (
               <>
