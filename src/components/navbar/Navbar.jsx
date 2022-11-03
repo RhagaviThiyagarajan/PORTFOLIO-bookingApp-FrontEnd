@@ -23,7 +23,7 @@ function Navbar() {
         </Link>
 
         {user ? (
-          <button className="userName" style={{  textDecoration: "none" }}>{user.username}</button>) : (
+          <button className="userName" style={{  textDecoration: "none" ,alignItems:"flex-start"}}>{user.username}</button>) : (
           <div className="navItems">
             <Link to="/signup" className="navButton">SignUp</Link>
           
