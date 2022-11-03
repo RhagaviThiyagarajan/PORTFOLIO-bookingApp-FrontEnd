@@ -28,6 +28,12 @@ const INITIAL_STATE = {
           load: false,
           error: action.payload,
         };
+        case "LOGIN_SIGNUP":
+          return {
+            user: null,
+            load: true,
+            error: action.payload,
+          };
       case "LOGOUT":
         return {
           user: null,

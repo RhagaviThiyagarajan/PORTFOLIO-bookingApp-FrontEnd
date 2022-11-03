@@ -16,7 +16,7 @@ function Login() {
 
 
 
-  const { loading, error, dispatch } = useContext(AuthContext);
+  const { load, error, dispatch } = useContext(AuthContext);
 
   const navigate = useNavigate()
 
@@ -34,6 +34,14 @@ function Login() {
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
     }
+  };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+
+  
+      navigate("/signup")
+   
   };
 
 
@@ -54,9 +62,18 @@ function Login() {
           onChange={handleChange}
           className="loginInput"
         />
-        <button disabled={loading} onClick={handleClick} className="loginButton">
+        <button disabled={load} onClick={handleClick} className="loginButton">
           Login
         </button>
+
+        <button disabled={load} onClick={handleSignUp} className="loginButton">
+          SignUp
+      
+        </button>
+   
+
+
+      
 
 
      

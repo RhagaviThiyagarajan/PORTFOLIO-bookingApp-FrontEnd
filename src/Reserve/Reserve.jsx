@@ -11,6 +11,7 @@ import { SearchContext } from "../context/SearchContext";
 import axios from "axios";
 export default function Reserve({ setOpen, hotelId }) {
   const [selectedRooms, setSelectedRooms] = useState([]);
+  const [message, setMessage] = useState(false);
   const { data, load, error } = useFetch(`https://booking-app-node.herokuapp.com/api/hotels/room/${hotelId}`);
   const { dates } = useContext(SearchContext);
 
@@ -60,13 +61,21 @@ export default function Reserve({ setOpen, hotelId }) {
 
         selectedRooms.map((roomId) => {
           const res = axios.put(`https://booking-app-node.herokuapp.com/api/rooms/availability/${roomId}`, {
+          
+          
             dates: alldates,
+         
           });
+          setMessage(true);
+         
           return res.data;
         })
       );
       setOpen(false);
-      navigate("/");
+
+   
+    
+      
     } catch (err) {}
   };
   return (
@@ -81,7 +90,7 @@ export default function Reserve({ setOpen, hotelId }) {
         {data.map((item) => (
           <div className="resultItem" key={item._id}>
             <div className="resultItemInfo">
-              <div className="resultTitle">{item.title}</div>
+              {/* <div className="resultTitle">{item.title}</div> */}
               <div className="resultDesc">{item.desc}</div>
               <div className="resultMax">
                 Max people: <b>{item.maxPeople}</b>
@@ -106,6 +115,14 @@ export default function Reserve({ setOpen, hotelId }) {
         <button onClick={handleClick} className="rButton">
           Reserve Now!
         </button>
+
+        {message && (
+            <span
+              style={{ color: "green", textAlign: "center", marginTop: "20px" }}
+            >
+             room reserved...
+            </span>
+          )}
       </div>
     </div>
   );

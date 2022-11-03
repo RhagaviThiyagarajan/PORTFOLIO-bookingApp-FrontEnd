@@ -126,3 +126,12 @@
   .optionCounterButton:disabled {
     cursor: not-allowed;
   }
+  .handleLoginButton{
+    padding:15px;
+    border-radius: 5px;
+    box-shadow: #0071c2;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  
+  }

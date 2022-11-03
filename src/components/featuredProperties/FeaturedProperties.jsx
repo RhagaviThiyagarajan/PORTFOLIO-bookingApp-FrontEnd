@@ -17,7 +17,7 @@ return (
             {data.map((item) => (
               <div className="fpItem" key={item._id}>
                 <img
-                  src={item.photo[0]}
+                  src={item.photos[0]}
                   alt=""
                   className="fpImg"
                 />

@@ -42,6 +42,15 @@ const Header = ({ type }) => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
+
+  const handleLogin=async(e)=>{
+    e.preventDefault();
+
+  
+    navigate("/login")
+ 
+  }
+
   const handleOption = (name, operation) => {
     setOptions((prev) => {
       return {
@@ -94,8 +103,12 @@ const Header = ({ type }) => {
               Find your next stay Search low prices on hotels, homes and much
               more...
             </p>
-            {!user && <button className="headerBtn">Sign in / Register</button>}
-            <navigate to="/login" />
+            {!user && 
+            <button className="handleLoginButton" onClick={handleLogin}>Login</button>
+          
+            }
+              
+          
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />

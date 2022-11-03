@@ -25,13 +25,20 @@ function Navbar() {
         {user ? (
           <button className="userName" style={{  textDecoration: "none" }}>{user.username}</button>) : (
           <div className="navItems">
-            <button className="navButton">Register</button>
-            <button className="navButton">Login</button>
+            <Link to="/signup" className="navButton">SignUp</Link>
+          
+            <Link to ="/login" className="navButton">Login</Link>
            
           </div>
         )}
   
-  <button className="Logout"  onClick={handleClick}>Logout</button>
+             {user && 
+            <button className="Logout"  onClick={handleClick}>Logout</button>
+          
+            }
+  
+  
+  
 
       
    
