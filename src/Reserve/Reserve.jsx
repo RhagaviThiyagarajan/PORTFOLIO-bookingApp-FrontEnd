@@ -10,27 +10,28 @@ import { useContext } from "react";
 import { SearchContext } from "../context/SearchContext";
 import axios from "axios";
 export default function Reserve({ setOpen, hotelId }) {
-  const { data, load, error } = useFetch(`hotels/room/${hotelId}`);
-  const { date } = useContext(SearchContext);
   const [selectedRooms, setSelectedRooms] = useState([]);
+  const { data, load, error } = useFetch(`https://booking-app-node.herokuapp.com/api/hotels/room/${hotelId}`);
+  const { dates } = useContext(SearchContext);
+
 
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
-    var dates = new Date(start.getTime());
+    const date = new Date(start.getTime());
 
-    var date = [];
+    const dates = [];
 
-    while (dates <= end) {
-      date.push(new Date(dates).getTime());
-      dates.setDate(dates.getDate() + 1);
+    while (date <= end) {
+      dates.push(new Date(date).getTime());
+      date.setDate(date.getDate() + 1);
     }
 
-    return date;
+    return dates;
   };
 
-  const alldates = getDatesInRange(date[0].startDate, date[0].endDate);
+  const alldates = getDatesInRange(dates[0]?.startDate, dates[0]?.endDate);
 
   const isAvailable = (roomNumber) => {
     const isFound = roomNumber.unavailableDates.some((date) =>
@@ -54,9 +55,11 @@ export default function Reserve({ setOpen, hotelId }) {
 
   const handleClick = async () => {
     try {
+      console.log("datas are added");
       await Promise.all(
+
         selectedRooms.map((roomId) => {
-          const res = axios.put(`https://booking-app-node.herokuapp.com/rooms/availability/${roomId}`, {
+          const res = axios.put(`https://booking-app-node.herokuapp.com/api/rooms/availability/${roomId}`, {
             dates: alldates,
           });
           return res.data;

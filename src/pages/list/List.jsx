@@ -8,24 +8,23 @@ import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from "../../components/SearchItem/SearchItem";
 
-function List() {
+const List = () => {
   const location = useLocation();
-  console.log(location);
   const [destination, setDestination] = useState(location.state.destination);
+  const [dates, setDates] = useState(location.state.dates);
   const [openDate, setOpenDate] = useState(false);
-  const [date, setDate] = useState(location.state.date);
-
-  const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState(location.state.options);
-
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
-  const { data, load, error, reFetch } = useFetch(
-    `https://booking-app-node.herokuapp.com/api/hotels?city=${destination}&min=${min||0}&max=${max||5000}`);
+
+  const { data, loading, error, reFetch } = useFetch(
+    `https://booking-app-node.herokuapp.com/api/hotels?city=${destination}&min=${min||0}&max=${max||5999}`
+  );
 
   const handleClick = () => {
     reFetch();
   };
+
   return (
     <div>
       <Navbar />
@@ -41,28 +40,29 @@ function List() {
             <div className="listItem">
               <label>Check-in Date</label>
               <span
-                onClick={() => setOpenDate(!openDate)}
-                className="headerSearchText"
-              >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
-                date[0].endDate,
-                "MM/dd/yyyy"
-              )}`}</span>
-
-              {openDate && (
-                <DateRange
-                  onChange={(item) => setDate([item.selection])}
-                  minDate={new Date()}
-                  ranges={date}
-                />
+                  onClick={() => setOpenDate(!openDate)}
+                  className="headerSearchText"
+                >{`${format(dates[0].startDate, "MM/dd/yyyy")} to ${format(
+                  dates[0].endDate,
+                  "MM/dd/yyyy"
+                )}`}</span>
+                {openDate && (
+                  <DateRange
+                    editableDateInputs={true}
+                    onChange={(item) => setDates([item.selection])}
+                    moveRangeOnFirstSelection={false}
+                    ranges={dates}
+                    className="date"
+                    minDate={new Date()}
+                  />
               )}
             </div>
-
             <div className="listItem">
               <label>Options</label>
               <div className="listOptions">
-                <div className="listoptionItem">
+                <div className="listOptionItem">
                   <span className="listOptionText">
-                    Min Price <small>per Night</small>
+                    Min price <small>per night</small>
                   </span>
                   <input
                     type="number"
@@ -70,61 +70,49 @@ function List() {
                     className="listOptionInput"
                   />
                 </div>
-
-                <div className="listoptionItem">
+                <div className="listOptionItem">
                   <span className="listOptionText">
-                    Max Price <small>per Night</small>
+                    Max price <small>per night</small>
                   </span>
                   <input
                     type="number"
                     onChange={(e) => setMax(e.target.value)}
                     className="listOptionInput"
-                  ></input>
+                  />
                 </div>
-
-                <div className="listoptionItem">
-                  <span className="listOptionText">
-                  Adult
-                  </span>
+                <div className="listOptionItem">
+                  <span className="listOptionText">Adult</span>
                   <input
                     type="number"
                     min={1}
-                    placeholder={options.adult}
                     className="listOptionInput"
-                  ></input>
+                    placeholder={options.adult}
+                  />
                 </div>
-
-                <div className="listoptionItem">
-                  <span className="listOptionText">
-            Children
-                  </span>
+                <div className="listOptionItem">
+                  <span className="listOptionText">Children</span>
                   <input
                     type="number"
                     min={0}
-                    placeholder={options.children}
                     className="listOptionInput"
-                  ></input>{" "}
+                    placeholder={options.children}
+                  />
                 </div>
-
-                <div className="listoptionItem">
-                  <span className="listOptionText">
-                    <small>Room</small>
-                  </span>
+                <div className="listOptionItem">
+                  <span className="listOptionText">Room</span>
                   <input
                     type="number"
                     min={1}
-                    placeholder={options.room}
                     className="listOptionInput"
-                  ></input>
+                    placeholder={options.room}
+                  />
                 </div>
               </div>
             </div>
-            <button onClick={handleClick} className="listSearchButton">
-              Search
-            </button>
+            <button onClick={handleClick}>Search</button>
           </div>
           <div className="listResult">
-            {load ? (
+            {loading ? (
               "loading"
             ) : (
               <>
@@ -138,6 +126,6 @@ function List() {
       </div>
     </div>
   );
-}
+};
 
 export default List;

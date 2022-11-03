@@ -22,7 +22,7 @@ const useFetch = (url) => {
   const reFetch = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(url);
+      const res = await axios.get("https://booking-app-node.herokuapp.com/api/hotels?featured=true");
       setData(res.data);
     } catch (error) {
       setError(error);
